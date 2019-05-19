@@ -9,6 +9,7 @@ import wolframalpha
 import os
 import sys
 
+
 engine = pyttsx3.init('sapi5')
 
 client = wolframalpha.Client('Your_App_ID')
@@ -24,18 +25,18 @@ def speak(audio):
 def greetMe():
     currentH = int(datetime.datetime.now().hour)
     if currentH >= 0 and currentH < 12:
-        speak('Good Morning Jason!')
+        speak('Good Morning Aiden!')
 
     if currentH >= 12 and currentH < 18:
-        speak('Good Afternoon Jason!')
+        speak('Good Afternoon Aiden!')
 
     if currentH >= 18 and currentH !=0:
-        speak('Good Evening Jason!')
+        speak('Good Evening Aiden!')
 
 greetMe()
 
-speak('Hello Jason, I am your digital assistant LARVIS the Lady Jarvis!')
-speak('How may I help you Jason?')
+speak('Hello Aiden, I am your digital assistant LARVIS the Lady Jarvis!')
+speak('How may I help you Aiden?')
 
 
 def myCommand():
@@ -50,7 +51,7 @@ def myCommand():
         print('User: ' + query + '\n')
         
     except sr.UnknownValueError:
-        speak('Sorry Jason! I didn\'t get that! Try typing the command!')
+        speak('Sorry Aiden! I didn\'t get that! Try typing the command!')
         query = str(input('Command: '))
 
     return query
@@ -97,19 +98,19 @@ if __name__ == '__main__':
                     speak('Email sent!')
 
                 except:
-                    speak('Sorry Jason! I am unable to send your message at this moment!')
+                    speak('Sorry Aiden! I am unable to send your message at this moment!')
 
 
         elif 'nothing' in query or 'abort' in query or 'stop' in query:
             speak('yes sir')
-            speak('Bye Jason, have a good day.')
+            speak('Bye Aiden, have a good day.')
             sys.exit()
            
         elif 'hello' in query:
-            speak('Hello Jason')
+            speak('Hello Aiden')
 
         elif 'bye' in query:
-            speak('Bye Jason, have a good day.')
+            speak('Bye Aiden, have a good day.')
             sys.exit()
                                     
         elif 'play music' in query:
@@ -119,8 +120,13 @@ if __name__ == '__main__':
             os.system(random_music)
                   
             speak('yes sir, here is your music! Enjoy!')
-            
-        elif 'your name' in query:        
+
+        elif "dinner" in query:
+            foods = ['com llq','com tc','banh canh','hu tieu nam vang','ga ran','pho','bot chien' ]
+            num_of_food=len(foods)
+            randomNumber = random.randint(0,num_of_food -1 )
+            speak("i have suggest for you, it is " + foods[randomNumber])
+        elif 'your name' in query:
              speak('I am Jarvis, your personal assistant')
              
             
@@ -144,6 +150,7 @@ if __name__ == '__main__':
         
             except:
                 webbrowser.open('www.google.com')
+
             
                  
         

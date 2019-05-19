@@ -2,10 +2,9 @@
 hello version 1.0
 
 # How To Install
-Run command
-pip install requirements
+Run command pip install requirements
 
-# New Features
+# Suggestion Features
 1. Answer to 'What time is it?'
 2. Dinner random picker
 3. Report weather forecast
