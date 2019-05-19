@@ -8,6 +8,9 @@ import datetime
 import wolframalpha
 import os
 import sys
+import json
+import requests
+
 
 
 engine = pyttsx3.init('sapi5')
@@ -51,7 +54,7 @@ def myCommand():
         print('User: ' + query + '\n')
         
     except sr.UnknownValueError:
-        speak('Sorry Aiden! I didn\'t get that! Try typing the command!')
+        speak('Sorry Aiden! I didnt get that! Try typing the command!')
         query = str(input('Command: '))
 
     return query
@@ -125,11 +128,16 @@ if __name__ == '__main__':
             foods = ['com llq','com tc','banh canh','hu tieu nam vang','ga ran','pho','bot chien' ]
             num_of_food=len(foods)
             randomNumber = random.randint(0,num_of_food -1 )
-            speak("i have suggest for you, it is " + foods[randomNumber])
+            speak("I have a suggestion for you, how about " + foods[randomNumber + "?"])
+        elif "weather" in query and ("now" or "today") in query:
+            response = requests.get('https://api.darksky.net/forecast/24cd61bddf35c80d5e2ff15663b50ec8/10.776530,106.700981')
+            json_data = json.loads(response.text)
+            summary = json_data['currently']['summary']
+            #Calculate F to C
+            temC = (json_data['currently']['temperature']-32)*5/9
+            speak("the weather is {} and the temperature is {} degree celcius".format(summary,str(round(temC,2))))
         elif 'your name' in query:
              speak('I am Jarvis, your personal assistant')
-             
-            
          
         else:
             query = query
@@ -141,17 +149,16 @@ if __name__ == '__main__':
                     speak('WOLFRAM-ALPHA says - ')
                     speak('Got it.')
                     speak(results)
-                    
+
                 except:
                     results = wikipedia.summary(query, sentences=2)
                     speak('Got it.')
                     speak('WIKIPEDIA says - ')
                     speak(results)
-        
+
             except:
                 webbrowser.open('www.google.com')
 
-            
-                 
-        
+
+
         speak('Next Command! Sir!')
