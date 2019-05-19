@@ -78,6 +78,21 @@ if __name__ == '__main__':
         elif 'open gmail' in query:
             speak('yes sir')
             webbrowser.open('www.gmail.com')
+        elif 'open instagram' in query:
+            speak('yes sir')
+            webbrowser.open('www.instagram.com')
+        elif 'open facebook' in query:
+            speak('yes sir')
+            webbrowser.open('www.facebook.com')
+        elif 'open messenger' in query:
+            speak('yes sir')
+            webbrowser.open('www.messenger.com')
+        elif 'open hangout' in query:
+            speak('yes sir')
+            webbrowser.open('www.hangout.com')
+        elif 'movie' in query:
+            speak('yes sir')
+            webbrowser.open('http://topphimhd.com/tag/banhtv/')
 
         elif "what\'s up" in query or 'how are you' in query:
             stMsgs = ['Just doing my thing!', 'I am fine!', 'Nice!', 'I am nice and full of energy']
