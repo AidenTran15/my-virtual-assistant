@@ -144,13 +144,21 @@ if __name__ == '__main__':
             num_of_food=len(foods)
             randomNumber = random.randint(0,num_of_food -1 )
             speak("I have a suggestion for you, how about " + foods[randomNumber + "?"])
-        elif "weather" in query and ("now" or "today") in query:
+        elif "weather" in query and "now" in query or "today" in query:
             response = requests.get('https://api.darksky.net/forecast/24cd61bddf35c80d5e2ff15663b50ec8/10.776530,106.700981')
             json_data = json.loads(response.text)
             summary = json_data['currently']['summary']
             #Calculate F to C
             temC = (json_data['currently']['temperature']-32)*5/9
             speak("the weather is {} and the temperature is {} degree celcius".format(summary,str(round(temC,2))))
+        elif "weather tomorrow" in query:
+            response = requests.get('https://api.darksky.net/forecast/24cd61bddf35c80d5e2ff15663b50ec8/10.776530,106.700981')
+            json_data = json.loads(response.text)
+            summary = json_data['daily']['data'][0]['summary']
+            # Calculate F to C
+            temMinC = (json_data['daily']['data'][0]['temperatureMin']-32)*5/9
+            temMaxC = (json_data['daily']['data'][0]['temperatureMax']-32)*5/9
+            speak("the weather tomorrow is {} and the temperature is about {} to {} degree celcius".format(summary,str(round(temMinC,2)),str(round(temMaxC))))
         elif 'your name' in query:
              speak('I am Jarvis, your personal assistant')
          
