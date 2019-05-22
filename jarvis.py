@@ -47,7 +47,7 @@ def myCommand():
     r = sr.Recognizer()                                                                                   
     with sr.Microphone() as source:                                                                       
         print("Listening...")
-        r.pause_threshold =  1
+        r.pause_threshold = 1
         audio = r.listen(source)
     try:
         query = r.recognize_google(audio, language='en-in')
@@ -58,6 +58,18 @@ def myCommand():
         query = str(input('Command: '))
 
     return query
+
+def getWeatherJSONData():
+    res = requests.get('https://api.ipify.org')
+    ip = res.text
+    send_url = 'http://api.ipstack.com/'+ip+'?access_key=7e5ea1fda803cb076716badc347f0885&output=json&legacy=1'
+    r = requests.get(send_url)
+    j = json.loads(r.text)
+    lat = j['latitude']
+    lon = j['longitude']
+    response = requests.get('https://api.darksky.net/forecast/24cd61bddf35c80d5e2ff15663b50ec8/'+str(lat)+','+str(lon)+'')
+    jsonWeather = json.loads(response.text)
+    return jsonWeather
         
 
 if __name__ == '__main__':
@@ -145,15 +157,15 @@ if __name__ == '__main__':
             randomNumber = random.randint(0,num_of_food -1 )
             speak("I have a suggestion for you, how about " + foods[randomNumber + "?"])
         elif "weather" in query and "now" in query or "today" in query:
-            response = requests.get('https://api.darksky.net/forecast/24cd61bddf35c80d5e2ff15663b50ec8/10.776530,106.700981')
-            json_data = json.loads(response.text)
+            json_data = getWeatherJSONData()
+
             summary = json_data['currently']['summary']
             #Calculate F to C
             temC = (json_data['currently']['temperature']-32)*5/9
             speak("the weather is {} and the temperature is {} degree celcius".format(summary,str(round(temC,2))))
         elif "weather tomorrow" in query:
-            response = requests.get('https://api.darksky.net/forecast/24cd61bddf35c80d5e2ff15663b50ec8/10.776530,106.700981')
-            json_data = json.loads(response.text)
+            json_data = getWeatherJSONData()
+
             summary = json_data['daily']['data'][0]['summary']
             # Calculate F to C
             temMinC = (json_data['daily']['data'][0]['temperatureMin']-32)*5/9
