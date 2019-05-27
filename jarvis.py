@@ -12,7 +12,6 @@ import json
 import requests
 
 
-
 engine = pyttsx3.init('sapi5')
 
 client = wolframalpha.Client('Your_App_ID')

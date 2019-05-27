@@ -1,5 +1,0 @@
-PyAudio==0.2.11
-SpeechRecognition==3.8.1
-pyttsx3==2.7
-wikipedia==1.4.0
-wolframalpha==3.0.1
